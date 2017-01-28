@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Timer;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -40,13 +41,13 @@ public class Robot extends IterativeRobot implements PIDOutput{
         hamiRobot.setExpiration(0.1);
         
              xboxController = new JoyStick(0);
+             xboxController1 = new Joystick(1);
              right1 = new Victor (1); //port 1
         right2 = new Victor (2); //port 2
         left1 = new Victor (3); //port 3
         left2 = new Victor (4); //port 4
         hamiRobot = new RobotDrive(right1, right2, left1, left2);
         }
-apple = orange;
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -56,6 +57,8 @@ apple = orange;
         chooser.addDefault("Default Auto", defaultAuto);
         chooser.addObject("My Auto", customAuto);
         SmartDashboard.putData("Auto choices", chooser);
+        
+        
     }
 
     /**
@@ -100,6 +103,11 @@ apple = orange;
      */
     @Override
     public void teleopPeriodic() {
+        while(isOperatorControl() && isEnabled()) {
+         hamirobot.TankDrive(xboxController, xboxController1);
+         Timer.delay(0.01);
+            
+        }
         setReverse();
         if (forward) {
             hamiRobot.tankDrive(-xboxController.getRawAxis(1) * 0.9, -xboxController.getRawAxis(5) * 0.9);
