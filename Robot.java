@@ -99,16 +99,7 @@ public class Robot extends IterativeRobot implements PIDOutput{
 		
 	}
 	
-	private void setReverse(){		//sets robot in reverse mode
-			   if(xboxController.getRawButton(4)){ // button 4 is left bumper on controller
-				   if(!backwards){
-					   forward = !forward;
-					   backwards = true;}
-			   }
-			   else {
-				   backwards = false;
-			   }
-		}
+
 	
 	private void xboxDrive(){
 		if (forward) {
